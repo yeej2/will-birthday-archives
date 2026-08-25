@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE WILL ARCHIVES</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%;
+      background: #050505;
+      color: #e0f0e0;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: hidden;
+      user-select: none;
+    }
+    #crt {
+      position: relative;
+      width: 100vw; height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #screen {
+      position: relative;
+      width: 880px; max-width: 95vw;
+      height: 580px; max-height: 90vh;
+      background: #080808;
+      border: 4px solid #333;
+      box-shadow: 0 0 40px rgba(50, 255, 200, 0.15);
+      overflow: hidden;
+    }
+    #screen::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+    #scene {
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 90%);
+      position: relative;
+    }
+    #portrait {
+      position: absolute;
+      top: 40px; left: 40px;
+      width: 120px; height: 120px;
+      border: 2px solid #444;
+      background: #111;
+      display: none;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: contrast(1.1) brightness(0.9);
+    }
+    #dialog {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      min-height: 140px;
+      background: rgba(0, 0, 0, 0.88);
+      border-top: 2px solid #00ffaa;
+      padding: 18px 24px;
+      z-index: 20;
+      cursor: pointer;
+    }
+    #speaker {
+      color: #00ffaa;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    #text {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #e8f0e8;
+      min-height: 60px;
+    }
+    #cursor {
+      display: inline-block;
+      width: 10px; height: 18px;
+      background: #00ffaa;
+      animation: blink 0.7s steps(1) infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    #minigame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: none;
+      z-index: 5;
+      background: #0b0b0b;
+      cursor: crosshair;
+    }
+    #cutsceneVideo {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: none;
+      z-index: 6;
+      background: #000;
+      object-fit: contain;
+      cursor: pointer;
+    }
+    #start {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      z-index: 50;
+    }
+    #startBtn {
+      background: transparent;
+      color: #00ffaa;
+      border: 2px solid #00ffaa;
+      padding: 16px 40px;
+      font-size: 22px;
+      font-family: inherit;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+    #startBtn:hover { background: #00ffaa; color: #000; }
+    .WILL #speaker { color: #5adaff; }
+    .SISTER #speaker { color: #ff7ad6; }
+    .JOSHUA #speaker { color: #ffaa55; }
+    .WIFE #speaker { color: #aaff7a; }
+    .ARCHIVE #speaker { color: #00ffaa; }
+    .NARRATOR #speaker { color: #d0d0d0; }
+  </style>
+</head>
+<body>
+  <div id="crt">
+    <div id="screen">
+      <div id="scene">
+        <img id="portrait" src="" alt="">
+      </div>
+      <canvas id="minigame" width="800" height="450"></canvas>
+      <video id="cutsceneVideo" playsinline></video>
+      <div id="dialog">
+        <div id="speaker">ARCHIVE</div>
+        <div id="text"></div>
+      </div>
+      <div id="start">
+        <button id="startBtn">Insert Tape</button>
+      </div>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
